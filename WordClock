@@ -30,10 +30,10 @@ uint32_t colorBlue = grid.Color(0, 0, 255);
 uint32_t colorJGreen = grid.Color(50, 179, 30);
 
 // the words
-int arrEMMA[] = {71,70,69,68,-1};
+int arrEMMA[] = {70,69,68,-1};
 int arrAND[] = {62,61,60,-1};
-int arrSEAN[] = {49,50,51,52,-1};
-int arrARE[] = {37,36,35,-1};
+int arrSEAN[] = {49,50,51,-1};
+int arrARE[] = {37,36,-1};
 int arrAWESOME[] = {15,16,17,18,19,20,21,-1};
 int arrCLOCK[] = {24,25,26,27,28,};
 
@@ -64,19 +64,19 @@ int arrMSEVENTEEN[] = {115, 116, 117, 118,-1};
 int arrTO[] = {103, 102,-1};           
 int arrPAST[] = {101, 100, 99,  98,-1};        
 
-int arrFOUR[] = {96, 95,  94,  93,-1};         
-int arrTWO[] = {92, 91,  90,-1};        
-int arrEIGHT[] = {75, 76,  77,  78,  79,-1};     
-int arrSIX[] = {80, 81,  82,-1};        
-int arrSEVEN[] = {84, 85,  86,  87,  88,-1};    
-int arrONE[] = {73, 72,  71,-1};               
-int arrTHREE[] = {67, 66,  65,  64,  63,-1};         
-int arrFIVE[] = {45,  46,  47,  48,-1};              
-int arrNINE[] = {52,  53,  54,  55,-1};        
-int arrTEN[] = {56,  57,  58,-1};       
-int arrTWELVE[] = {43,  42,  41,  40,  39,  38,-1};      
-int arrELEVEN[] = {35,  34,  33,  32,  31,  30,-1};      
-int arrOCLOCK[] = {22,  23,  24,  25,  26,  27,  28,-1};  
+int arrFOUR[] = {96, 95, 94, 93,-1};         
+int arrTWO[] = {92, 91, 90,-1};        
+int arrEIGHT[] = {75, 76, 77, 78, 79,-1};     
+int arrSIX[] = {80, 81, 82,-1};        
+int arrSEVEN[] = {84,85, 86, 87, 88,-1};    
+int arrONE[] = {73, 72, -1};               
+int arrTHREE[] = {67, 66, 65, 64, 63,-1};         
+int arrFIVE[] = {45, 46, 47, 48,-1};              
+int arrNINE[] = {53, 54, 55,-1};        
+int arrTEN[] = {56, 57, 58,-1};       
+int arrTWELVE[] = {43, 42, 41, 40, 39, 38,-1};      
+int arrELEVEN[] = {34, 33, 32, 31, 30,-1};      
+int arrOCLOCK[] = {22, 23, 24, 25, 26, 27, 28,-1};  
  
 int arrDOT1[] = {13,-1};         
 int arrDOT2[] = {12,-1};         
@@ -92,6 +92,11 @@ int arrDOT11[] = {3,-1};
 int arrDOT12[] = {2,-1};            
 int arrDOT13[] = {1,-1};            
 int arrDOT14[] = {0,-1};
+
+int arrSINGLE_onEmma[] = {71,-1}; //The E at the start of Emma and the end of One to avoid flickering on half past
+int arrSINGLE_seaNine[] = {52,-1}; //The N at the start of Nine and the end of Sean to avoid flickering on half past
+int arrSINGLE_arEleven[] = {35,-1}; //The E at the start of Eleven and the end of Are to avoid flickering on half past
+
 
 void setup() {
   // set up the debuging serial output
@@ -208,6 +213,9 @@ void loop(){
   }else{
     colorWipe(colorBlack, 0);
     paintWord(arrONE, colorRed);
+    paintWord(arrSINGLE_onEmma, colorRed);
+
+    
     Serial.println("The time has not been set.  Please run the Time");
     Serial.println("TimeRTCSet example, or DS1307RTC SetTime example.");
     Serial.println();
@@ -919,10 +927,13 @@ void displayTime(){
     paintWord(arrMEIGHTEEN, colorBlack);
     paintWord(arrMNINETEEN, colorBlack);
     paintWord(arrMTWENTY, colorWhite);
+   // paintWord(arrSINGLE_onEmma, colorBlack);
     paintWord(arrEMMA, colorBlack);
     paintWord(arrAND, colorBlack);
     paintWord(arrSEAN, colorBlack);
+   // paintWord(arrSINGLE_seaNine, colorBlack);
     paintWord(arrARE, colorBlack);
+   // paintWord(arrSINGLE_arEleven, colorBlack);
     paintWord(arrAWESOME, colorBlack);
   }
   if((minute()==30)){
@@ -964,10 +975,13 @@ void displayTime(){
     paintWord(arrIT, colorBlack);
     paintWord(arrIS, colorBlack);
     paintWord(arrOCLOCK, colorBlack);
+      paintWord(arrSINGLE_onEmma, colorRed);
       paintWord(arrEMMA, colorRed);
       paintWord(arrAND, colorWhite);
       paintWord(arrSEAN, colorJGreen);
+      paintWord(arrSINGLE_seaNine, colorJGreen);
       paintWord(arrARE, colorWhite);
+      paintWord(arrSINGLE_arEleven, colorWhite);
       paintWord(arrAWESOME, colorWhite);
       
   }
@@ -977,6 +991,7 @@ void displayTime(){
       case 13:
       strCurrentTime = strCurrentTime + "one ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorWhite);
         paintWord(arrONE, colorWhite);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -985,8 +1000,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -994,6 +1011,7 @@ void displayTime(){
     case 14:
       strCurrentTime = strCurrentTime + "two ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorWhite);
         paintWord(arrTHREE, colorBlack);
@@ -1002,8 +1020,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1011,6 +1031,7 @@ void displayTime(){
     case 15:
       strCurrentTime = strCurrentTime + "three ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorWhite);
@@ -1019,8 +1040,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1028,6 +1051,7 @@ void displayTime(){
     case 16:
       strCurrentTime = strCurrentTime + "four ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1036,8 +1060,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1045,6 +1071,7 @@ void displayTime(){
     case 17:
       strCurrentTime = strCurrentTime + "five ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1053,8 +1080,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1062,6 +1091,7 @@ void displayTime(){
     case 18:
       strCurrentTime = strCurrentTime + "six ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1070,8 +1100,10 @@ void displayTime(){
         paintWord(arrSIX, colorWhite);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1079,6 +1111,7 @@ void displayTime(){
     case 19:
       strCurrentTime = strCurrentTime + "seven ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1087,8 +1120,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorWhite);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1096,6 +1131,7 @@ void displayTime(){
     case 20:
       strCurrentTime = strCurrentTime + "eight ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1104,8 +1140,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorWhite);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1113,6 +1151,7 @@ void displayTime(){
     case 21:
       strCurrentTime = strCurrentTime + "nine ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1121,8 +1160,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorWhite);
         paintWord(arrNINE, colorWhite);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1130,6 +1171,7 @@ void displayTime(){
     case 22:
       strCurrentTime = strCurrentTime + "ten ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1138,8 +1180,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorWhite);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1147,6 +1191,7 @@ void displayTime(){
     case 23:
       strCurrentTime = strCurrentTime + "eleven ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1155,8 +1200,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorWhite);
         paintWord(arrELEVEN, colorWhite);
         paintWord(arrTWELVE, colorBlack);
       break;
@@ -1165,6 +1212,56 @@ void displayTime(){
     case 24:
       strCurrentTime = strCurrentTime + "twelve ";
         paintWord(arrMONE, colorBlack);
+        paintWord(arrSINGLE_onEmma, colorBlack);
+        paintWord(arrONE, colorBlack);
+        paintWord(arrTWO, colorBlack);
+        paintWord(arrTHREE, colorBlack);
+        paintWord(arrFOUR, colorBlack);
+        paintWord(arrFIVE, colorBlack);
+        paintWord(arrSIX, colorBlack);
+        paintWord(arrSEVEN, colorBlack);
+        paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
+        paintWord(arrNINE, colorBlack);
+        paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
+        paintWord(arrELEVEN, colorBlack);
+        paintWord(arrTWELVE, colorWhite);
+      break;
+    }
+    strCurrentTime = strCurrentTime + "oclock ";
+    paintWord(arrPAST, colorBlack);
+    if (minute() != 30){
+        paintWord(arrOCLOCK, colorWhite);
+     }
+    paintWord(arrTO, colorBlack);
+  }
+  else if (minute() == 30){
+        paintWord(arrPAST, colorBlack);
+        paintWord(arrOCLOCK, colorBlack);
+        paintWord(arrTO, colorBlack);
+
+        paintWord(arrMONE, colorBlack);
+        paintWord(arrMTWO, colorBlack);
+        paintWord(arrMTHREE, colorBlack);
+        paintWord(arrMFOUR, colorBlack);
+        paintWord(arrMFIVE, colorBlack);
+        paintWord(arrMSIX, colorBlack);
+        paintWord(arrMSEVEN, colorBlack);
+        paintWord(arrMEIGHT, colorBlack);
+        paintWord(arrMNINE, colorBlack);
+        paintWord(arrMTEN, colorBlack);
+        paintWord(arrMELEVEN, colorBlack);
+        paintWord(arrMTWELVE, colorBlack);
+        paintWord(arrMTHIRTEEN, colorBlack);
+        paintWord(arrMFOURTEEN, colorBlack);
+        paintWord(arrMQUARTER, colorBlack);
+        paintWord(arrMSIXTEEN, colorBlack);
+        paintWord(arrMSEVENTEEN, colorBlack);
+        paintWord(arrMEIGHTEEN, colorBlack);
+        paintWord(arrMNINETEEN, colorBlack);
+        paintWord(arrMTWENTY, colorBlack);
+
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1176,15 +1273,26 @@ void displayTime(){
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
         paintWord(arrELEVEN, colorBlack);
-        paintWord(arrTWELVE, colorWhite);
-      break;
-    }
-    strCurrentTime = strCurrentTime + "oclock ";
-    paintWord(arrPAST, colorBlack);
-    paintWord(arrOCLOCK, colorWhite);
-    paintWord(arrTO, colorBlack);
-  }else if((minute() < 31) && (minute() >0)){
+        paintWord(arrTWELVE, colorBlack);
+        paintWord(arrTO, colorBlack);
+        paintWord(arrPAST, colorBlack);
+        paintWord(arrIT, colorBlack);
+        paintWord(arrIS, colorBlack);
+        paintWord(arrOCLOCK, colorBlack);
+
+        paintWord(arrSINGLE_onEmma, colorRed);
+        paintWord(arrEMMA, colorRed);
+        paintWord(arrAND, colorWhite);
+        paintWord(arrSEAN, colorJGreen);
+        paintWord(arrSINGLE_seaNine, colorJGreen);
+        paintWord(arrARE, colorWhite);
+        paintWord(arrSINGLE_arEleven, colorWhite);
+        paintWord(arrAWESOME, colorWhite);
+  }
+
+  else if((minute() < 30) && (minute() >0)){
     strCurrentTime = strCurrentTime + "past ";
+
     paintWord(arrPAST, colorWhite);
     paintWord(arrOCLOCK, colorBlack);
     paintWord(arrTO, colorBlack);
@@ -1192,6 +1300,7 @@ void displayTime(){
       case 1:
       case 13:
         strCurrentTime = strCurrentTime + "one ";
+        paintWord(arrSINGLE_onEmma, colorWhite);
         paintWord(arrONE, colorWhite);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1200,14 +1309,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 2: 
       case 14:
         strCurrentTime = strCurrentTime + "two ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorWhite);
         paintWord(arrTHREE, colorBlack);
@@ -1216,14 +1328,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 3: 
       case 15:
         strCurrentTime = strCurrentTime + "three ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorWhite);
@@ -1232,14 +1347,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 4: 
       case 16:
         strCurrentTime = strCurrentTime + "four ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1248,14 +1366,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 5: 
       case 17:
         strCurrentTime = strCurrentTime + "five ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1264,14 +1385,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 6: 
       case 18:
         strCurrentTime = strCurrentTime + "six ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1280,14 +1404,17 @@ void displayTime(){
         paintWord(arrSIX, colorWhite);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 7: 
       case 19:
         strCurrentTime = strCurrentTime + "seven ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1296,14 +1423,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorWhite);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 8: 
       case 20:
         strCurrentTime = strCurrentTime + "eight ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1312,14 +1442,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorWhite);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 9: 
       case 21:
         strCurrentTime = strCurrentTime + "nine ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1328,14 +1461,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorWhite);
         paintWord(arrNINE, colorWhite);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 10:
       case 22:
         strCurrentTime = strCurrentTime + "ten ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1344,14 +1480,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorWhite);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 11:
       case 23:
         strCurrentTime = strCurrentTime + "eleven ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1360,8 +1499,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorWhite);
         paintWord(arrELEVEN, colorWhite);
         paintWord(arrTWELVE, colorBlack);
         break;
@@ -1369,6 +1510,7 @@ void displayTime(){
       case 12:
       case 24:
         strCurrentTime = strCurrentTime + "twelve ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1377,8 +1519,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorWhite);
         break;
@@ -1394,6 +1538,7 @@ void displayTime(){
         case 1: 
         case 13:
         strCurrentTime = strCurrentTime + "two ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorWhite);
         paintWord(arrTHREE, colorBlack);
@@ -1402,14 +1547,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 14:
       case 2:
         strCurrentTime = strCurrentTime + "three ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorWhite);
@@ -1418,14 +1566,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 15:
       case 3:
         strCurrentTime = strCurrentTime + "four ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1434,14 +1585,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 4: 
       case 16:
         strCurrentTime = strCurrentTime + "five ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1450,14 +1604,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 5: 
       case 17:
         strCurrentTime = strCurrentTime + "six ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1466,14 +1623,17 @@ void displayTime(){
         paintWord(arrSIX, colorWhite);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 6: 
       case 18:
         strCurrentTime = strCurrentTime + "seven ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1482,14 +1642,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorWhite);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 7: 
       case 19:
         strCurrentTime = strCurrentTime + "eight ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1498,14 +1661,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorWhite);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 8: 
       case 20:
         strCurrentTime = strCurrentTime + "nine ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1514,14 +1680,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorWhite);
         paintWord(arrNINE, colorWhite);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack); 
         break;
       case 9: 
       case 21:
         strCurrentTime = strCurrentTime + "ten ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1530,14 +1699,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorWhite);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack); 
         break;
       case 10: 
       case 22:
         strCurrentTime = strCurrentTime + "eleven ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1546,14 +1718,17 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorWhite);
         paintWord(arrELEVEN, colorWhite);
         paintWord(arrTWELVE, colorBlack);
         break;
       case 11: 
       case 23:
         strCurrentTime = strCurrentTime + "twelve ";
+        paintWord(arrSINGLE_onEmma, colorBlack);
         paintWord(arrONE, colorBlack);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1562,8 +1737,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorWhite);
         break;
@@ -1571,6 +1748,7 @@ void displayTime(){
       case 12: 
       case 24:
         strCurrentTime = strCurrentTime + "one ";
+        paintWord(arrSINGLE_onEmma, colorWhite);
         paintWord(arrONE, colorWhite);
         paintWord(arrTWO, colorBlack);
         paintWord(arrTHREE, colorBlack);
@@ -1579,8 +1757,10 @@ void displayTime(){
         paintWord(arrSIX, colorBlack);
         paintWord(arrSEVEN, colorBlack);
         paintWord(arrEIGHT, colorBlack);
+        paintWord(arrSINGLE_seaNine, colorBlack);
         paintWord(arrNINE, colorBlack);
         paintWord(arrTEN, colorBlack);
+        paintWord(arrSINGLE_arEleven, colorBlack);
         paintWord(arrELEVEN, colorBlack);
         paintWord(arrTWELVE, colorBlack);
         break;
@@ -1841,13 +2021,16 @@ void displayTime(){
 }
 
 void EMMAANDSEANAREAWESOME(){
+  paintWord(arrSINGLE_onEmma, colorRed);
   paintWord(arrEMMA, colorRed);
   delay(400);
   paintWord(arrAND, colorWhite);
   delay(400);
   paintWord(arrSEAN, colorJGreen);
+  paintWord(arrSINGLE_seaNine, colorJGreen);
   delay(400);
   paintWord(arrARE, colorWhite);
+  paintWord(arrSINGLE_arEleven, colorWhite);
   delay(400);
   paintWord(arrAWESOME, colorWhite);
   delay(400);
